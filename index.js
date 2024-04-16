@@ -18,7 +18,7 @@ const express = require('express')
 const app = express()
 
 app.get('/', (req, res) => {
-	res.sendFile('./static/index.html', {
+	res.sendFile('./static/public/index.html', {
 		root: __dirname,
 	})
 })
