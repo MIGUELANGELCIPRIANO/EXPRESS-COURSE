@@ -2,7 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 
 const app = express()
-const products = []
+let products = []
 
 app.use(morgan('dev'))
 app.use(express.json())
@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/:id', (req, res) => {
-	const product = products.find((product) => product.id == req.params.id)
+	const product = products.find((product) => product.id == req.params.id) // OR `product.id === parseInt(req.params.id)`
 	product
 		? res.json(product)
 		: res.status(404).json({ message: 'Product not found' })
@@ -25,11 +25,30 @@ app.post('/', (req, res) => {
 })
 
 app.put('/:id', (req, res) => {
-	res.json('Updated product')
+	const newData = req.body
+	const product = products.find(
+		(product) => product.id === parseInt(req.params.id)
+	)
+	!product
+		? (res.status(404).json({ message: 'Product not found' }), null)
+		: ((products = products.map((product) =>
+				product.id === parseInt(req.params.id)
+					? { ...product, ...newData }
+					: product
+		  )),
+		  res.status(200).json({ message: 'Updated product' }))
 })
 
 app.delete('/:id', (req, res) => {
-	res.json('Product deleted')
+	const product = products.find(
+		(product) => product.id === parseInt(req.params.id)
+	)
+	!product
+		? (res.status(404).json({ message: 'Product not found' }), null)
+		: ((products = products.filter(
+				(product) => product.id !== parseInt(req.params.id)
+		  )),
+		  res.sendStatus(204))
 })
 
 app.listen(3000)
