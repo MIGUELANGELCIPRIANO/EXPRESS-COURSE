@@ -2,31 +2,34 @@ const express = require('express')
 const morgan = require('morgan')
 
 const app = express()
+const products = []
 
 app.use(morgan('dev'))
+app.use(express.json())
 
 app.get('/', (req, res) => {
-	res.send('Landing')
+	res.json(products)
 })
 
-app.get('/products', (req, res) => {
-	res.send('Product list')
+app.get('/:id', (req, res) => {
+	const product = products.find((product) => product.id == req.params.id)
+	product
+		? res.json(product)
+		: res.status(404).json({ message: 'Product not found' })
 })
 
-app.get('/products/:id', (req, res) => {
-	res.send('Product')
+app.post('/', (req, res) => {
+	const newProduct = { ...req.body, id: products.length + 1 }
+	products.push(newProduct)
+	res.json(newProduct)
 })
 
-app.post('/products', (req, res) => {
-	res.send('Create product')
+app.put('/:id', (req, res) => {
+	res.json('Updated product')
 })
 
-app.put('/products/:id', (req, res) => {
-	res.send('Updated product')
-})
-
-app.delete('/products/:id', (req, res) => {
-	res.send('Product deleted')
+app.delete('/:id', (req, res) => {
+	res.json('Product deleted')
 })
 
 app.listen(3000)
