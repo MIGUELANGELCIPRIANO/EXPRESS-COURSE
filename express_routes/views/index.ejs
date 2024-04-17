@@ -1,4 +1,6 @@
 <%- include('partials/header'); %>
 <h1>EJS-EXPRESS-PAGE</h1>
 <h2><%= subtitle %></h2>
-<%- include('partials/footer'); %>
+<%= (isActive) ? "Active server" : "Inactive server" %>
+<br />
+<%= new Date() %> <%-include('partials/footer'); %>
