@@ -19,6 +19,7 @@
 // METHOD #2
 
 const express = require('express') // OR `const { Router } = require('express')`
+const axios = require('axios')
 
 const router = express.Router() // OR `const router = Router()`
 
@@ -76,6 +77,11 @@ router.get('/dashboard', (req, res) => {
 		},
 	]
 	res.render('dashboard', { users })
+})
+
+router.get('/posts', async (req, res) => {
+	const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+	res.render('posts', { posts: response.data })
 })
 
 module.exports = router
