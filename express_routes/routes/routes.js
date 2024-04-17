@@ -23,7 +23,8 @@ const express = require('express') // OR `const { Router } = require('express')`
 const router = express.Router() // OR `const router = Router()`
 
 router.get('/', (req, res) => {
-	res.send('Welcome!')
+	const subtitle = 'Welcome to the homepage'
+	res.render('index', { subtitle })
 })
 
 router.get('/about', (req, res) => {
