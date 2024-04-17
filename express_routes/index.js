@@ -17,6 +17,7 @@ app.use(morgan('dev'))
 
 // Routes(app) // METHOD #1
 app.use(Routes) // METHOD #2
+app.use('/public', express.static(path.join(__dirname, 'public')))
 
 app.listen(app.get('port'))
 console.log(`${app.get('appName')} server listening on port ${app.get('port')}`)

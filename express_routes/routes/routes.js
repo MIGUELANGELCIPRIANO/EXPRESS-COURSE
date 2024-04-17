@@ -28,11 +28,11 @@ router.get('/', (req, res) => {
 })
 
 router.get('/about', (req, res) => {
-	res.send('About')
+	res.render('about')
 })
 
 router.get('/dashboard', (req, res) => {
-	res.send('Dashboard')
+	res.render('dashboard')
 })
 
 module.exports = router
