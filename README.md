@@ -1,6 +1,6 @@
 # EXPRESS-COURSE
 
-<img width="50%" src="" />
+<img width="50%" src="./static/public/images/expressjs_course.png" />
 
 ## INTRODUCTION
 
